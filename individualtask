@@ -1,0 +1,93 @@
+#include <iostream>
+#include <algorithm>
+
+
+using namespace std;
+struct stud
+{
+	int number; // Номер заліковки
+	char surname[20];
+	int math_result; // math mark //
+	int informatika_result;
+	int physics_result;
+
+};
+struct cell
+{
+	stud data;
+	cell* previous;
+	cell* next;
+};
+class list
+{
+public:
+	cell* header;
+	cell* tail;
+public:
+	list() { header = NULL; tail = NULL; }
+	void add();
+	void print();
+};
+void list::add()
+{
+	cell* p;
+	p = new cell;
+	cout << "input number" << endl;
+	cin >> p->data.number;
+	cout << "input surname" << endl;
+	cin >> p->data.surname;
+	cout << "math_result" << endl;
+	cin >> p->data.math_result;
+	cout << "informatika_result" << endl;
+	cin >> p->data.informatika_result;
+	cout << "physics_result" << endl;
+	cin >> p->data.physics_result;
+
+	if (header == NULL)
+	{
+		header = p; tail = p; tail->next = NULL; header->previous = NULL;
+	}
+	else
+	{
+		p->next = NULL;
+		p->previous = tail;
+		tail->next = p;
+		tail = p;
+	}
+}
+void list::print()
+{
+	cell* p;
+	p = header;
+	int k = 0;
+	while (p != NULL)
+	{
+		k = k + 1;
+		cout << p->data.number << "  " << p->data.surname << "  " << p->data.math_result << "  " << p->data.informatika_result << "  " << p->data.physics_result << endl;
+		p = p->next;
+	}
+	if (k == 0) { cout << "empty list" << endl; }
+	else { cout << "end of list" << endl; }
+}
+int main()
+{
+	int M = 6;
+	list l;
+	for (int i = 0; i < M; i++)
+	{
+		l.add();
+		cout << endl;
+	}
+	l.print();
+
+	// рейтинг обчислюється автоматично після введення оцінок як їх середнє арифметичне.
+
+	int findAverage[] = { 10, 12, 5 };  // input average marks and sort it from hiest to lowest 
+
+	sort(findAverage, findAverage + 3);
+
+	for (int i = 0; i < 3; i++)
+		cout << findAverage[i] << " Rating: ";
+
+	return 0;
+}
